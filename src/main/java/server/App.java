@@ -1,3 +1,5 @@
+package main.java.server;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +23,7 @@ public class App extends Frame implements ActionListener, Runnable {
     DataOutputStream dataOutputStream;
     
     Thread chat;
-    String userName;
+    String userName,otherUserName;
     
     Frame serverFrame;
     
@@ -85,6 +87,11 @@ public class App extends Frame implements ActionListener, Runnable {
             
             dataInputStream = new DataInputStream(socket.getInputStream());
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
+
+            dataOutputStream.writeUTF(userName);
+            dataOutputStream.flush();
+
+            otherUserName = dataInputStream.readUTF();
         } catch (IOException e) {
             System.out.println("Connection Error: " + e.getMessage());
         }
@@ -127,9 +134,9 @@ public class App extends Frame implements ActionListener, Runnable {
         while (true) {
             try {
                 String msg = dataInputStream.readUTF();
-                chatArea.append("Client: " + msg + "\n");
+                chatArea.append(otherUserName+":"+ msg + "\n");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                
             }
         }
     }

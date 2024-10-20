@@ -1,3 +1,5 @@
+package main.java.client;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +18,7 @@ public class App2 extends Frame implements ActionListener, Runnable {
     DataInputStream dataInputStream;
     DataOutputStream dataOutputStream;
     Thread chat;
-    String userName;
+    String userName,otherUserName;
     
     Frame inputFrame;
 
@@ -89,6 +91,12 @@ public class App2 extends Frame implements ActionListener, Runnable {
             dataInputStream = new DataInputStream(socket.getInputStream());
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
+            dataOutputStream.writeUTF(userName);
+            dataOutputStream.flush();
+
+            otherUserName = dataInputStream.readUTF();
+            
+
         } catch (IOException e) {
             System.out.println("Connection Error: " + e.getMessage());
         }
@@ -116,11 +124,11 @@ public class App2 extends Frame implements ActionListener, Runnable {
 
     public void actionPerformed(ActionEvent e) {
         String data = chatBox.getText();
-        chatArea.append(userName + ": " + data + "\n"); // Display the user's name
+        chatArea.append(userName + ": " + data + "\n"); 
         chatBox.setText("");
 
         try {
-            dataOutputStream.writeUTF(data); // Send the message to the server
+            dataOutputStream.writeUTF(data);
             dataOutputStream.flush();
         } catch (IOException ex) {
             System.out.println("Message Sending Error: " + ex.getMessage());
@@ -130,17 +138,16 @@ public class App2 extends Frame implements ActionListener, Runnable {
     public void run() {
         while (true) {
             try {
-                String msg = dataInputStream.readUTF(); 
-                chatArea.append("Other: " + msg + "\n");
+                String msg = dataInputStream.readUTF();
+                chatArea.append(otherUserName+":"+ msg + "\n");
             } catch (Exception e) {
-                System.out.println("Message Receiving Error: " + e.getMessage());
             }
         }
     }
 
     private void applyColors() {
-        chatBox.setBackground(Color.LIGHT_GRAY);
-        chatArea.setBackground(Color.WHITE);
+        chatBox.setBackground(Color.blue);
+        chatArea.setBackground(Color.black);
         send.setBackground(Color.CYAN);
         chatBox.setForeground(Color.DARK_GRAY);
         send.setForeground(Color.BLACK);
