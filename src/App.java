@@ -63,6 +63,7 @@ public class App extends Frame implements ActionListener, Runnable{
         add(chatArea);
         add(send);
 
+        applyColors();
 
 
         addWindowListener(new WindowAdapter() {
@@ -102,6 +103,14 @@ public class App extends Frame implements ActionListener, Runnable{
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void applyColors() {
+        chatBox.setBackground(Color.LIGHT_GRAY);    
+        chatArea.setBackground(Color.WHITE);        
+        send.setBackground(Color.CYAN);             
+        chatBox.setForeground(Color.DARK_GRAY);     
+        send.setForeground(Color.BLACK);            
     }
 
     public static void main(String[] args) throws Exception {
