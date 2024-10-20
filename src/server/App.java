@@ -1,4 +1,4 @@
-package main.java.server;
+package server;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +27,7 @@ public class App extends Frame implements ActionListener, Runnable {
     
     Frame serverFrame;
     
-    App() {
+    public App() {
         // Setup for user input form
         serverFrame = new Frame("Server Setup");
         Label nameLabel = new Label("Your Name:");
@@ -149,7 +149,8 @@ public class App extends Frame implements ActionListener, Runnable {
         send.setForeground(Color.BLACK);
     }
     
-    public static void main(String[] args) throws Exception {
+    /* public static void main(String[] args) throws Exception {
         new App();
-    }
-}
+    }*/
+} 
+    

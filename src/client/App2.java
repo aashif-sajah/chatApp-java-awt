@@ -1,4 +1,4 @@
-package main.java.client;
+package client;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +22,7 @@ public class App2 extends Frame implements ActionListener, Runnable {
     
     Frame inputFrame;
 
-    App2() {
+    public App2() {
         // Setup for user input form
         inputFrame = new Frame("Connect to Server");
         Label ipLabel = new Label("Server IP Address:");
@@ -153,7 +153,7 @@ public class App2 extends Frame implements ActionListener, Runnable {
         send.setForeground(Color.BLACK);
     }
 
-    public static void main(String[] args) {
+    /* public static void main(String[] args) {
         new App2();
-    }
+    } */
 }
